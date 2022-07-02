@@ -1,4 +1,6 @@
-package com.example.android_fitness_app.Model;
+package com.example.android_fitness_app.Model.allExercises;
+
+import com.example.android_fitness_app.Model.Set;
 
 import java.util.ArrayList;
 
