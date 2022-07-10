@@ -1,23 +1,17 @@
-package com.example.android_fitness_app.Model.allExercises;
-
-import com.example.android_fitness_app.Model.Set;
+package com.example.android_fitness_app.Model;
 
 import java.net.URL;
 import java.util.ArrayList;
 
 public class Exercise {
-    private final ArrayList<Set> sets;
     private static ArrayList<Exercise> allExercise=new ArrayList<>();
     private String info;
     private String name;
     private URL imageUrl;
 
-    public Exercise() {
-        this.sets = new ArrayList<>();
-    }
-
-    public ArrayList<Set> getSets() {
-        return sets;
+    public Exercise(String name,String info) {
+        this.name = name;
+        this.info = info;
     }
 
     public static ArrayList<Exercise> getAllExercise() {
@@ -32,7 +26,9 @@ public class Exercise {
         return name;
     }
 
-
-
+    public static void addExercise(Exercise exercise){
+        allExercise.add(exercise);
+    }
 
 }
+
