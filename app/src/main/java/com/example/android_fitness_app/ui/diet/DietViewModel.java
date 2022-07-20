@@ -10,7 +10,7 @@ public class DietViewModel extends ViewModel {
 
     public DietViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is Diet fragment");
     }
 
     public LiveData<String> getText() {

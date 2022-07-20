@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.android_fitness_app.databinding.FragmentDashboardBinding;
+import com.example.android_fitness_app.databinding.FragmentDietBinding;
 
 public class DietFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentDietBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DietViewModel dietViewModel =
                 new ViewModelProvider(this).get(DietViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentDietBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
+        final TextView textView = binding.textDiet;
         dietViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }

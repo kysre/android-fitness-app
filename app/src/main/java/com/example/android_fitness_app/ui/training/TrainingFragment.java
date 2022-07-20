@@ -10,21 +10,21 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.android_fitness_app.databinding.FragmentNotificationsBinding;
+import com.example.android_fitness_app.databinding.FragmentTrainingBinding;
 
 public class TrainingFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentTrainingBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         TrainingViewModel trainingViewModel =
                 new ViewModelProvider(this).get(TrainingViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentTrainingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+        final TextView textView = binding.textTraining;
         trainingViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
