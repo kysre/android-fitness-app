@@ -13,19 +13,19 @@
 
     <fragment
         android:id="@+id/navigation_diet"
-        android:name="com.example.android_fitness_app.ui.dashboard.DashboardFragment"
+        android:name="com.example.android_fitness_app.ui.diet.DietFragment"
         android:label="@string/title_diet"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_training"
-        android:name="com.example.android_fitness_app.ui.notifications.NotificationsFragment"
+        android:name="com.example.android_fitness_app.ui.training.TrainingFragment"
         android:label="@string/title_training"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.example.android_fitness_app.ui.notifications.NotificationsFragment"
+        android:name="com.example.android_fitness_app.ui.training.TrainingFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

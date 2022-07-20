@@ -4,12 +4,12 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Exercise {
-    private static ArrayList<Exercise> allExercise=new ArrayList<>();
+    private static ArrayList<Exercise> allExercise = new ArrayList<>();
     private String info;
     private String name;
     private URL imageUrl;
 
-    public Exercise(String name,String info) {
+    public Exercise(String name, String info) {
         this.name = name;
         this.info = info;
     }
@@ -26,9 +26,8 @@ public class Exercise {
         return name;
     }
 
-    public static void addExercise(Exercise exercise){
+    public static void addExercise(Exercise exercise) {
         allExercise.add(exercise);
     }
-
 }
 
