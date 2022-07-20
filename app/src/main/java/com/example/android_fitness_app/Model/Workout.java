@@ -9,9 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.util.UUID;
 
 public class Workout {
     private final static ArrayList<Workout> workouts;
+    private final UUID id;
     private final LinkedHashMap<String, ArrayList<ExerciseSet>> exercises;
     private String name;
     private final LocalDateTime workoutDateTime;
@@ -22,10 +24,20 @@ public class Workout {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Workout() {
+        this.id = UUID.randomUUID();
         this.exercises = new LinkedHashMap<>();
         this.workoutDateTime = LocalDateTime.now();
         this.name = getDefaultWorkoutName(workoutDateTime);
         workouts.add(this);
+    }
+
+    public static Workout getWorkoutById(UUID id) {
+        for (Workout workout : workouts) {
+            if (workout.id.equals(id)) {
+                return workout;
+            }
+        }
+        return null;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -61,5 +73,17 @@ public class Workout {
     public String getDateString() {
         DateTimeFormatter workoutDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd");
         return workoutDateTime.format(workoutDateTimeFormatter);
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public LinkedHashMap<String, ArrayList<ExerciseSet>> getExercises() {
+        return exercises;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

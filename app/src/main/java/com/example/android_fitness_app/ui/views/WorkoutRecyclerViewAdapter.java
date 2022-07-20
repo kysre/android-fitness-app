@@ -1,20 +1,26 @@
 package com.example.android_fitness_app.ui.views;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android_fitness_app.Model.ExerciseSet;
 import com.example.android_fitness_app.Model.Workout;
 import com.example.android_fitness_app.R;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecyclerViewAdapter.ViewHolder> {
     private Context context;
@@ -37,7 +43,34 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
         holder.workoutTextView.setText(list.get(position).getWorkoutName());
         holder.dateTextView.setText(list.get(position).getDate());
         holder.volumeTextView.setText(list.get(position).getVolume());
-        // Todo: set exercises in exercisesLinearLayout
+        // set exercises views in exercisesLinearLayout
+        LinkedHashMap<String, ArrayList<ExerciseSet>> exercises = list.get(position).getExercises();
+        Set<String> keys = exercises.keySet();
+        for (String key : keys) {
+            ArrayList<ExerciseSet> sets = exercises.get(key);
+            if (sets != null) {
+                String leftText = sets.size() + " * " + key;
+                String rightText = ExerciseSet.getBestSetString(sets);
+                TextView leftTextView = new TextView(context);
+                TextView rightTextView = new TextView(context);
+                leftTextView.setText(leftText);
+                rightTextView.setText(rightText);
+                rightTextView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                leftTextView.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                rightTextView.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                // put TextViews next to each other
+                LinearLayoutCompat textViewsLinearLayout = new LinearLayoutCompat(context);
+                textViewsLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                textViewsLinearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
+                textViewsLinearLayout.addView(leftTextView);
+                textViewsLinearLayout.addView(rightTextView);
+                // add TextViews to linearLayout
+                holder.exercisesLinearLayout.addView(textViewsLinearLayout);
+            }
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,12 +98,15 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
         private final String workoutName;
         private final String date;
         private final String volume;
+        private final LinkedHashMap<String, ArrayList<ExerciseSet>> exercises;
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         public ExerciseListItem(Workout workout) {
             this.workout = workout;
             this.workoutName = workout.getName();
             this.date = workout.getDateString();
             this.volume = workout.getVolume() + " kg";
+            this.exercises = workout.getExercises();
         }
 
         public String getWorkoutName() {
@@ -83,6 +119,10 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
 
         public String getVolume() {
             return volume;
+        }
+
+        public LinkedHashMap<String, ArrayList<ExerciseSet>> getExercises() {
+            return exercises;
         }
     }
 }
