@@ -1,4 +1,4 @@
-package com.example.android_fitness_app.ui.views;
+package com.example.android_fitness_app.ui.workout;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,10 +7,8 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.LinearLayoutCompat;

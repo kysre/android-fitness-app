@@ -31,6 +31,10 @@ public class Workout {
         workouts.add(this);
     }
 
+    public static ArrayList<Workout> getWorkouts() {
+        return workouts;
+    }
+
     public static Workout getWorkoutById(UUID id) {
         for (Workout workout : workouts) {
             if (workout.id.equals(id)) {
