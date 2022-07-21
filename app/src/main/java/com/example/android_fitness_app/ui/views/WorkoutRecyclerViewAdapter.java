@@ -1,12 +1,16 @@
 package com.example.android_fitness_app.ui.views;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -24,9 +28,9 @@ import java.util.Set;
 
 public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecyclerViewAdapter.ViewHolder> {
     private Context context;
-    private List<ExerciseListItem> list;
+    private List<WorkoutListItem> list;
 
-    public WorkoutRecyclerViewAdapter(Context context, List<ExerciseListItem> list) {
+    public WorkoutRecyclerViewAdapter(Context context, List<WorkoutListItem> list) {
         this.context = context;
         this.list = list;
     }
@@ -56,10 +60,14 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
                 leftTextView.setText(leftText);
                 rightTextView.setText(rightText);
                 rightTextView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
-                leftTextView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                rightTextView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                ViewGroup.LayoutParams params = new LinearLayoutCompat.LayoutParams(
+                        0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+                leftTextView.setLayoutParams(params);
+                rightTextView.setLayoutParams(params);
+                leftTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                rightTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                leftTextView.setTextColor(Color.BLACK);
+                rightTextView.setTextColor(Color.BLACK);
                 // put TextViews next to each other
                 LinearLayoutCompat textViewsLinearLayout = new LinearLayoutCompat(context);
                 textViewsLinearLayout.setLayoutParams(new ViewGroup.LayoutParams(
@@ -90,10 +98,10 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
-    public static class ExerciseListItem {
+    public static class WorkoutListItem {
         private final Workout workout;
         private final String workoutName;
         private final String date;
@@ -101,7 +109,7 @@ public class WorkoutRecyclerViewAdapter extends RecyclerView.Adapter<WorkoutRecy
         private final LinkedHashMap<String, ArrayList<ExerciseSet>> exercises;
 
         @RequiresApi(api = Build.VERSION_CODES.O)
-        public ExerciseListItem(Workout workout) {
+        public WorkoutListItem(Workout workout) {
             this.workout = workout;
             this.workoutName = workout.getName();
             this.date = workout.getDateString();

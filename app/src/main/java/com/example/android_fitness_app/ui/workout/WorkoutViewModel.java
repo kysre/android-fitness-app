@@ -1,16 +1,16 @@
-package com.example.android_fitness_app.ui.training;
+package com.example.android_fitness_app.ui.workout;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class TrainingViewModel extends ViewModel {
+public class WorkoutViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public TrainingViewModel() {
+    public WorkoutViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Training fragment");
+        mText.setValue("This is Workout fragment");
     }
 
     public LiveData<String> getText() {

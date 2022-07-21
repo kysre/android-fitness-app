@@ -19,9 +19,9 @@
 
     <fragment
         android:id="@+id/navigation_training"
-        android:name="com.example.android_fitness_app.ui.training.TrainingFragment"
-        android:label="@string/title_training"
-        tools:layout="@layout/fragment_training" />
+        android:name="com.example.android_fitness_app.ui.workout.WorkoutFragment"
+        android:label="@string/title_workout"
+        tools:layout="@layout/fragment_workout" />
 
     <fragment
         android:id="@+id/navigation_settings"
