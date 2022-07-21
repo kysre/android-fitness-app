@@ -20,7 +20,7 @@ public class ExerciseSet {
                 bestSet = set;
             }
         }
-        return bestSet.getWeight() + " * " + bestSet.getReps();
+        return bestSet.getWeight() + " kg * " + bestSet.getReps();
     }
 
     public double getVolume() {
@@ -45,5 +45,12 @@ public class ExerciseSet {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return exercise.getName() +
+                "\t" + weight +
+                " * " + reps;
     }
 }
