@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +20,13 @@ import com.example.android_fitness_app.Model.ExerciseSet;
 import com.example.android_fitness_app.Model.Workout;
 import com.example.android_fitness_app.R;
 import com.example.android_fitness_app.databinding.FragmentWorkoutBinding;
-import com.example.android_fitness_app.ui.views.WorkoutRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
 public class WorkoutFragment extends Fragment {
 
     private FragmentWorkoutBinding binding;
+    private Button addWorkoutButton;
     private RecyclerView workoutRecyclerView;
     private WorkoutRecyclerViewAdapter adapter;
     private ArrayList<WorkoutRecyclerViewAdapter.WorkoutListItem> workoutListItems;
@@ -44,10 +45,15 @@ public class WorkoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        addWorkoutButton = view.findViewById(R.id.addWorkoutButton);
         workoutRecyclerView = view.findViewById(R.id.workoutRecyclerView);
         workoutRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         workoutListItems = new ArrayList<>();
+//        ArrayList<Workout> workouts = Workout.getWorkouts();
+//        for (Workout workout : workouts) {
+//            workoutListItems.add(new WorkoutRecyclerViewAdapter.WorkoutListItem(workout));
+//        }
         Workout workout = new Workout();
         Exercise exercise = new Exercise("test-1", "info");
         ExerciseSet set = new ExerciseSet(exercise);
@@ -68,6 +74,13 @@ public class WorkoutFragment extends Fragment {
 
         adapter = new WorkoutRecyclerViewAdapter(getActivity(), workoutListItems);
         workoutRecyclerView.setAdapter(adapter);
+
+        addWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Todo: navigate to add workout activity
+            }
+        });
     }
 
     @Override
