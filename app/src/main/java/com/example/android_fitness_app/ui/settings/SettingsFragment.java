@@ -73,7 +73,7 @@ public class SettingsFragment extends Fragment {
             femaleRadioButton.setChecked(true);
         }
         // add methods to components
-        nameEditText.addTextChangedListener(new TextWatcher() {
+        TextWatcher userInfoTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -84,39 +84,17 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                user.setName(nameEditText.getText().toString());
+                String name = nameEditText.getText().toString();
+                if (!name.equals("")) user.setName(name);
+                String weight = weightEditText.getText().toString();
+                if (!weight.equals("")) user.setWeight(Double.parseDouble(weight));
+                String height = heightEditText.getText().toString();
+                if (!height.equals("")) user.setHeight(Double.parseDouble(weight));
             }
-        });
-
-        weightEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                user.setWeight(Double.parseDouble(weightEditText.getText().toString()));
-            }
-        });
-
-        heightEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                user.setHeight(Double.parseDouble(heightEditText.getText().toString()));
-            }
-        });
+        };
+        nameEditText.addTextChangedListener(userInfoTextWatcher);
+        weightEditText.addTextChangedListener(userInfoTextWatcher);
+        heightEditText.addTextChangedListener(userInfoTextWatcher);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
