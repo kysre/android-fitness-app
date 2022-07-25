@@ -1,5 +1,6 @@
 package com.example.android_fitness_app.ui.workout;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -78,9 +79,14 @@ public class WorkoutFragment extends Fragment {
         addWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Todo: navigate to add workout activity
+                switchActivities();
             }
         });
+    }
+
+    private void switchActivities() {
+        Intent switchActivityIntent = new Intent(getActivity(), AddWorkoutActivity.class);
+        startActivity(switchActivityIntent);
     }
 
     @Override
