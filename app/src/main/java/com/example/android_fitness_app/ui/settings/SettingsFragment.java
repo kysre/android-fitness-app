@@ -1,15 +1,16 @@
 package com.example.android_fitness_app.ui.settings;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,16 +18,19 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.android_fitness_app.Model.User;
 import com.example.android_fitness_app.R;
 import com.example.android_fitness_app.databinding.FragmentSettingsBinding;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class SettingsFragment extends Fragment {
 
+    private User user;
     private FragmentSettingsBinding binding;
     private EditText nameEditText;
     private EditText weightEditText;
     private EditText heightEditText;
+    private RadioGroup radioGroup;
     private RadioButton maleRadioButton;
     private RadioButton femaleRadioButton;
     private SwitchMaterial darkModeSwitch;
@@ -42,16 +46,88 @@ public class SettingsFragment extends Fragment {
         return root;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        user = User.getInstance();
         nameEditText = view.findViewById(R.id.nameEditText);
         weightEditText = view.findViewById(R.id.weightEditText);
         heightEditText = view.findViewById(R.id.heightEditText);
+        radioGroup = view.findViewById(R.id.radioGroup);
         maleRadioButton = view.findViewById(R.id.maleRadioButton);
         femaleRadioButton = view.findViewById(R.id.femaleRadioButton);
         darkModeSwitch = view.findViewById(R.id.darkModeSwitch);
+        // init fields
+        String name = user.getName();
+        if (name != null) nameEditText.setText(name);
+        double weight = user.getWeight();
+        if (weight != -1) weightEditText.setText(Double.toString(weight));
+        double height = user.getHeight();
+        if (height != -1) weightEditText.setText(Double.toString(height));
+        User.Sex sex = user.getSex();
+        if (sex == User.Sex.MALE) {
+            maleRadioButton.setChecked(true);
+        } else if (sex == User.Sex.FEMALE) {
+            femaleRadioButton.setChecked(true);
+        }
+        // add methods to components
+        nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                user.setName(nameEditText.getText().toString());
+            }
+        });
+
+        weightEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                user.setWeight(Double.parseDouble(weightEditText.getText().toString()));
+            }
+        });
+
+        heightEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                user.setHeight(Double.parseDouble(heightEditText.getText().toString()));
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.maleRadioButton) {
+                    user.setSex(User.Sex.MALE);
+                } else if (checkedId == R.id.femaleRadioButton) {
+                    user.setSex(User.Sex.FEMALE);
+                }
+            }
+        });
 
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -63,7 +139,6 @@ public class SettingsFragment extends Fragment {
                 }
             }
         });
-
     }
 
     @Override
