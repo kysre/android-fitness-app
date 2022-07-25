@@ -3,14 +3,14 @@ package com.example.android_fitness_app.Model;
 public class User {
     private static User user;
     private String name;
-    private double height;
     private double weight;
+    private double height;
     private Sex sex;
 
     private User() {
-        name = "";
-        height = 175.0;
-        weight = 75.0;
+        name = null;
+        height = -1;
+        weight = -1;
         sex = Sex.MALE;
     }
 
@@ -27,14 +27,6 @@ public class User {
         this.name = name;
     }
 
-    public double getHeight() {
-        return height;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
     public double getWeight() {
         return weight;
     }
@@ -43,16 +35,35 @@ public class User {
         this.weight = weight;
     }
 
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
     public Sex getSex() {
         return sex;
     }
 
     public void setSex(Sex sex) {
         this.sex = sex;
+        System.out.println(this);
     }
 
     public enum Sex {
         MALE,
         FEMALE
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", sex=" + sex +
+                '}';
     }
 }
