@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -18,9 +19,10 @@ import com.example.android_fitness_app.databinding.FragmentExerciseBinding;
 public class ExerciseFragment extends Fragment {
 
     private FragmentExerciseBinding binding;
-    private TextView exerciseNameTextView;
+    private EditText exerciseNameEditText;
     private TableLayout exerciseTableLayout;
     private Button addSetButton;
+    private int tableRowCount = 1;
 
     @Nullable
     @Override
@@ -35,13 +37,24 @@ public class ExerciseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        exerciseNameTextView = view.findViewById(R.id.exerciseNameTextView);
+        exerciseNameEditText = view.findViewById(R.id.exerciseNameEditText);
         exerciseTableLayout = view.findViewById(R.id.exerciseTableLayout);
         addSetButton = view.findViewById(R.id.addSetButton);
 
         View tableRow = getLayoutInflater().inflate(R.layout.set_tablerow, binding.getRoot(), false);
         exerciseTableLayout.addView(tableRow);
+        tableRowCount++;
 
+        addSetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View tableRow = getLayoutInflater().inflate(R.layout.set_tablerow, binding.getRoot(), false);
+                TextView setTextView = tableRow.findViewById(R.id.setNumberTextView);
+                setTextView.setText(String.valueOf(tableRowCount));
+                exerciseTableLayout.addView(tableRow);
+                tableRowCount++;
+            }
+        });
     }
 
     @Override
