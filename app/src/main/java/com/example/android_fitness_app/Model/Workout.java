@@ -28,7 +28,6 @@ public class Workout {
         this.exercises = new LinkedHashMap<>();
         this.workoutDateTime = LocalDateTime.now();
         this.name = getDefaultWorkoutName(workoutDateTime);
-        workouts.add(this);
     }
 
     public static ArrayList<Workout> getWorkouts() {
@@ -42,6 +41,10 @@ public class Workout {
             }
         }
         return null;
+    }
+
+    public static void addWorkout(Workout workout) {
+        workouts.add(workout);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
