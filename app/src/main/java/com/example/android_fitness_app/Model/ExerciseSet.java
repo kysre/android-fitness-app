@@ -13,6 +13,12 @@ public class ExerciseSet {
         this.weight = 0;
     }
 
+    public ExerciseSet(String exerciseName, double weight, int reps) {
+        this.exercise = new Exercise(exerciseName);
+        this.weight = weight;
+        this.reps = reps;
+    }
+
     public static String getBestSetString(ArrayList<ExerciseSet> exerciseSets) {
         ExerciseSet bestSet = exerciseSets.get(0);
         for (ExerciseSet set : exerciseSets) {

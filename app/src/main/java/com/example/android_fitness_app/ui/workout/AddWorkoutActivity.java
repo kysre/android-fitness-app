@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,13 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.android_fitness_app.Model.ExerciseSet;
 import com.example.android_fitness_app.Model.Workout;
 import com.example.android_fitness_app.R;
 import com.example.android_fitness_app.databinding.ActivityAddWorkoutBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class AddWorkoutActivity extends AppCompatActivity {
 
@@ -102,7 +108,26 @@ public class AddWorkoutActivity extends AppCompatActivity {
     private void saveWorkout() {
         int exerciseCount = exercisesLinearLayout.getChildCount();
         for (int i = 0; i < exerciseCount; i++) {
-            // TODO: save workout and add to workouts
+            View view = exercisesLinearLayout.getChildAt(i);
+            if (view instanceof ConstraintLayout) {
+                ConstraintLayout constraintLayout = (ConstraintLayout) view;
+                TextInputLayout exerciseNameTextInputLayout = (TextInputLayout) constraintLayout
+                        .getViewById(R.id.exerciseNameTextInputLayout);
+                EditText exerciseNameEditText = (EditText) exerciseNameTextInputLayout
+                        .findViewById(R.id.exerciseNameEditText);
+                String exerciseName = exerciseNameEditText.getText().toString();
+                TableLayout tableLayout = (TableLayout) constraintLayout.getViewById(R.id.exerciseTableLayout);
+                int rowCount = tableLayout.getChildCount();
+                for (int j = 1; j < rowCount; j++) {
+                    TableRow row = (TableRow) tableLayout.getChildAt(j);
+                    EditText weightEditText = (EditText) row.findViewById(R.id.weightEditText);
+                    EditText repsEditText = (EditText) row.findViewById(R.id.repsEditText);
+                    double weight = Double.parseDouble(weightEditText.getText().toString());
+                    int reps = Integer.parseInt(repsEditText.getText().toString());
+                    workout.addSet(exerciseName, new ExerciseSet(exerciseName, weight, reps));
+                }
+            }
         }
+        Workout.addWorkout(workout);
     }
 }
