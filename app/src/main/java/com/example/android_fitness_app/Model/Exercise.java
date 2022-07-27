@@ -14,6 +14,11 @@ public class Exercise {
         this.info = info;
     }
 
+    public Exercise(String name) {
+        this.name = name;
+        this.info = "No info available for this exercise.";
+    }
+
     public static ArrayList<Exercise> getAllExercise() {
         return allExercise;
     }

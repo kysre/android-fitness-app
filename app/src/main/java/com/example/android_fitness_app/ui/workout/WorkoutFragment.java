@@ -1,5 +1,6 @@
 package com.example.android_fitness_app.ui.workout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,8 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android_fitness_app.Model.Exercise;
-import com.example.android_fitness_app.Model.ExerciseSet;
 import com.example.android_fitness_app.Model.Workout;
 import com.example.android_fitness_app.R;
 import com.example.android_fitness_app.databinding.FragmentWorkoutBinding;
@@ -46,33 +45,12 @@ public class WorkoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         addWorkoutButton = view.findViewById(R.id.addWorkoutButton);
         workoutRecyclerView = view.findViewById(R.id.workoutRecyclerView);
+
         workoutRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        workoutListItems = new ArrayList<>();
-//        ArrayList<Workout> workouts = Workout.getWorkouts();
-//        for (Workout workout : workouts) {
-//            workoutListItems.add(new WorkoutRecyclerViewAdapter.WorkoutListItem(workout));
-//        }
-        Workout workout = new Workout();
-        Exercise exercise = new Exercise("test-1", "info");
-        ExerciseSet set = new ExerciseSet(exercise);
-        set.setReps(12);
-        set.setWeight(12.5);
-        workout.addSet(exercise.getName(), set);
-        set = new ExerciseSet(exercise);
-        set.setReps(10);
-        set.setWeight(20);
-        workout.addSet(exercise.getName(), set);
-        set = new ExerciseSet(exercise);
-        set.setReps(1);
-        set.setWeight(50);
-        workout.addSet(exercise.getName(), set);
-        workoutListItems.add(new WorkoutRecyclerViewAdapter.WorkoutListItem(workout));
-        workoutListItems.add(new WorkoutRecyclerViewAdapter.WorkoutListItem(workout));
-        workoutListItems.add(new WorkoutRecyclerViewAdapter.WorkoutListItem(workout));
-
+        workoutListItems = getWorkoutListItems();
         adapter = new WorkoutRecyclerViewAdapter(getActivity(), workoutListItems);
         workoutRecyclerView.setAdapter(adapter);
 
@@ -84,9 +62,29 @@ public class WorkoutFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private ArrayList<WorkoutRecyclerViewAdapter.WorkoutListItem> getWorkoutListItems() {
+        ArrayList<Workout> workouts = Workout.getWorkouts();
+        ArrayList<WorkoutRecyclerViewAdapter.WorkoutListItem> listItems = new ArrayList<>();
+        for (Workout workout : workouts) {
+            listItems.add(new WorkoutRecyclerViewAdapter.WorkoutListItem(workout));
+        }
+        return listItems;
+    }
+
     private void switchActivities() {
         Intent switchActivityIntent = new Intent(getActivity(), AddWorkoutActivity.class);
         startActivity(switchActivityIntent);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onResume() {
+        super.onResume();
+        workoutListItems.clear();
+        workoutListItems.addAll(getWorkoutListItems());
+        adapter.notifyDataSetChanged();
     }
 
     @Override
