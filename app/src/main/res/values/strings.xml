@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">android-fitness-app</string>
+    <string name="title_home">Home</string>
+    <string name="title_diet">Diet</string>
+    <string name="title_workout">Workout</string>
+    <string name="title_settings">Settings</string>
+</resources>
