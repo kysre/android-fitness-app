@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1715" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1715" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1715" />
+        <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1715" />
+        <entry key="app/src/main/res/layout/activity_add_workout.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/exercise_recyclerview_row.xml" value="0.29375" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_diet.xml" value="0.14672686230248308" />
+        <entry key="app/src/main/res/layout/fragment_exercise.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.28974151611328125" />
+        <entry key="app/src/main/res/layout/fragment_training.xml" value="0.16032608695652173" />
+        <entry key="app/src/main/res/layout/fragment_workout.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/layout/set_tablerow.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/workout_recyclerview_row.xml" value="0.2947916666666667" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.29375" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
