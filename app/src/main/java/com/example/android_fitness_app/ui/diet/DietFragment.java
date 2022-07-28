@@ -4,11 +4,14 @@ package com.example.android_fitness_app.ui.diet;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,6 +32,8 @@ import android.widget.TextView;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 
 public class DietFragment extends Fragment {
 
@@ -36,6 +41,7 @@ public class DietFragment extends Fragment {
     TextView tvR, tvPython, tvCPP, tvJava;
     PieChart pieChart;
     EditText txt;
+    Button button;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,29 +58,56 @@ public class DietFragment extends Fragment {
         tvCPP = root.findViewById(R.id.tvCPP);
         tvJava = root.findViewById(R.id.tvJava);
         pieChart = root.findViewById(R.id.piechart);
-        txt = root.findViewById(R.id.txt);
+        txt = root.findViewById(R.id.txtDiet);
+        button = root.findViewById(R.id.buttonDiet);
 
 
-
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                 Food f = Food.getFoodByName(txt.getText().toString());
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Food f = Food.getFoodByName(txt.getText().toString());
 //                 String carb_percent = f.getPercentOfCarbohydrate();
 //                 String fat_percent = f.getPercentOfFat();
 //                 String prot_percent = f.getPercentOfProtein();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tvR.setText(f.getPercentOfCarbohydrate());
-                        tvPython.setText(f.getPercentOfFat());
-                        tvCPP.setText(f.getPercentOfProtein());
-                        tvJava.setText(f.getAmountOfCalories());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                root.findViewById(R.id.cardViewGraph2).setVisibility(View.VISIBLE);
+                                root.findViewById(R.id.cardViewGraph3).setVisibility(View.VISIBLE);
+                                root.findViewById(R.id.diet_introduce).setVisibility(View.INVISIBLE);
+                                tvR.setText(f.getPercentOfCarbohydrate());
+                                tvPython.setText(f.getPercentOfFat());
+                                tvCPP.setText(f.getPercentOfProtein());
+                                tvJava.setText(f.getAmountOfCalories());
 
+                                pieChart.clearChart();
+                                pieChart.addPieSlice(
+                                        new PieModel(
+                                                "R",
+                                                (int) Float.parseFloat(f.getPercentOfCarbohydrate()),
+                                                Color.parseColor("#FFA726")));
+                                pieChart.addPieSlice(
+                                        new PieModel(
+                                                "Python",
+                                                (int) Float.parseFloat(f.getPercentOfFat()),
+                                                Color.parseColor("#66BB6A")));
+                                pieChart.addPieSlice(
+                                        new PieModel(
+                                                "C++",
+                                                (int) Float.parseFloat(f.getPercentOfProtein()),
+                                                Color.parseColor("#EF5350")));
+
+                                pieChart.startAnimation();
+
+                            }
+                        });
                     }
                 });
             }
         });
+
 
 
 //        tvR.setText(Integer.toString(40));
@@ -82,33 +115,8 @@ public class DietFragment extends Fragment {
 //        tvCPP.setText(Integer.toString(5));
 //        tvJava.setText(Integer.toString(25));
 
-        pieChart.addPieSlice(
-                new PieModel(
-                        "R",
-                        Integer.parseInt(tvR.getText().toString()),
-                        Color.parseColor("#FFA726")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Python",
-                        Integer.parseInt(tvPython.getText().toString()),
-                        Color.parseColor("#66BB6A")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "C++",
-                        Integer.parseInt(tvCPP.getText().toString()),
-                        Color.parseColor("#EF5350")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Java",
-                        Integer.parseInt(tvJava.getText().toString()),
-                        Color.parseColor("#29B6F6")));
-
-        pieChart.startAnimation();
-
         return root;
     }
-
-
 
     @Override
     public void onDestroyView() {

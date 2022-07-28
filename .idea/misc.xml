@@ -11,7 +11,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/exercise_recyclerview_row.xml" value="0.29375" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19610507246376813" />
-        <entry key="app/src/main/res/layout/fragment_diet.xml" value="0.14672686230248308" />
+        <entry key="app/src/main/res/layout/fragment_diet.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_exercise.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19610507246376813" />
