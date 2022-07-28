@@ -34,6 +34,17 @@ public class Workout {
         return workouts;
     }
 
+    public static Workout getLastWorkout() {
+        if (workouts.size() > 0) {
+            return workouts.get(workouts.size() - 1);
+        }
+        return null;
+    }
+
+    public static int getWorkoutCount() {
+        return workouts.size();
+    }
+
     public static Workout getWorkoutById(UUID id) {
         for (Workout workout : workouts) {
             if (workout.id.equals(id)) {
